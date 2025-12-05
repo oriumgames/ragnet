@@ -11,7 +11,7 @@ use crate::error::{Error, Result};
 pub struct OpenConnectionRequest2 {
     pub server_address: SocketAddr,
     pub mtu: u16,
-    pub client_guid: i64,
+    pub client_guid: u64,
     /// Whether the server has security enabled (affects parsing).
     pub server_has_security: bool,
     pub cookie: u32,
@@ -31,7 +31,7 @@ impl Default for OpenConnectionRequest2 {
 
 impl OpenConnectionRequest2 {
     /// Creates a new open connection request 2.
-    pub fn new(server_address: SocketAddr, mtu: u16, client_guid: i64) -> Self {
+    pub fn new(server_address: SocketAddr, mtu: u16, client_guid: u64) -> Self {
         Self {
             server_address,
             mtu,
@@ -45,7 +45,7 @@ impl OpenConnectionRequest2 {
     pub fn with_security(
         server_address: SocketAddr,
         mtu: u16,
-        client_guid: i64,
+        client_guid: u64,
         cookie: u32,
     ) -> Self {
         Self {
@@ -87,7 +87,7 @@ impl OpenConnectionRequest2 {
         }
 
         self.mtu = u16::from_be_bytes([data[offset], data[offset + 1]]);
-        self.client_guid = i64::from_be_bytes([
+        self.client_guid = u64::from_be_bytes([
             data[offset + 2],
             data[offset + 3],
             data[offset + 4],

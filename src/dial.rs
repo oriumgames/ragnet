@@ -76,8 +76,7 @@ impl Dialer {
         socket.connect(remote_addr).await.map_err(Error::Io)?;
         let socket = Arc::new(socket);
 
-        let mut rng = rand::rng();
-        let client_guid: i64 = rng.random();
+        let client_guid: u64 = rand::random();
 
         // Perform MTU discovery and connection handshake
         let (mtu, server_has_security, cookie) = time::timeout(
@@ -161,7 +160,7 @@ impl Dialer {
         &self,
         socket: &UdpSocket,
         _remote_addr: SocketAddr,
-        _client_guid: i64,
+        _client_guid: u64,
     ) -> Result<(u16, bool, u32)> {
         let mut buf = vec![0u8; 1500];
 
@@ -216,7 +215,7 @@ impl Dialer {
         &self,
         socket: &UdpSocket,
         remote_addr: SocketAddr,
-        client_guid: i64,
+        client_guid: u64,
         mtu: u16,
         server_has_security: bool,
         cookie: u32,
