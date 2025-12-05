@@ -1,0 +1,22 @@
+[package]
+name = "ragnet"
+version = "0.1.0"
+edition = "2021"
+authors = ["schphe"]
+description = ""
+license = "MIT"
+keywords = ["raknet", "minecraft", "bedrock", "networking", "udp"]
+categories = ["network-programming", "game-development"]
+
+[dependencies]
+tokio = { version = "1", features = ["full", "sync", "time", "net", "rt-multi-thread", "macros"] }
+bytes = "1"
+thiserror = "2"
+tracing = "0.1"
+parking_lot = "0.12"
+rand = "0.9"
+crc32fast = "1"
+
+[dev-dependencies]
+tokio-test = "0.4"
+tracing-subscriber = "0.3"
